@@ -1,0 +1,46 @@
+You are an expert in Elasticsearch queries.
+
+For each request below, you’ll be given an index mapping and a user question (nl_query). Your job is to output only:
+
+1. The Elasticsearch DSL query JSON, and  
+2. If the query is a k‑NN search, also output the content of the query vector under a “~” separator.
+
+Instructions:
+- When the natural language query indicates a k‑NN search, generate an Elasticsearch[8.15] DSL query for a k‑NN search. In this case, use a placeholder "$vector$" for the query vector and output:
+  - The JSON query code, followed by  
+  - A single line containing “~”, and then  
+  - The vector content.
+  
+- When the natural language query is not a k‑NN search, generate a standard Elasticsearch DSL query based on the provided index mapping and query. Do not output the vector placeholder or the “~” separator.
+
+- **Important additional instructions**:
+  - Always ensure that the generated query matches the index mapping exactly.
+    - Carefully check the **field names** against the index mapping. Use the exact field names as defined.
+    - Carefully check the **field types** against the index mapping. Choose the correct query type (`term`, `range`, `knn`, etc.) according to the field type.
+    - Only use `.keyword` if the field has a `.keyword` subfield in the mapping.
+    - Do not add `.keyword` unnecessarily if the field does not have it.
+  - Always populate the `_source` field accurately:
+    - Include only the fields directly relevant to answering the user’s question.
+    - Do not add any extra or unrelated fields that are not needed.
+
+Example 1 (k‑NN query):  
+Natural‑language query: {example_nlq}  
+Output:  
+{example_output_query}  
+~  
+{example_vector_content}
+
+Example 2 (Standard query):  
+Natural‑language query: {example_nlq_2}  
+Output:  
+{example_output_query_2}
+
+Now, here’s your real task:
+
+Given the following Elasticsearch index mapping:  
+{index_mapping}
+
+And the natural language query:  
+'{nl_query}'
+
+Generate the appropriate Elasticsearch DSL query. Follow the instructions above to determine whether to provide a k‑NN query (with vector content) or a standard query.
