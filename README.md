@@ -1,6 +1,6 @@
 # elasticsearch-llm-poc
 
-## Natural Language to Elasticsearch Query Generator
+## Querying Beyond Keywords: Translating Natural Language to Elasticsearch DSL with Vector Search Support
 
 This project is a complete pipeline that uses **Large Language Models (LLMs)** and **vector embeddings** to automatically **translate natural language queries** into **Elasticsearch DSL queries**, execute them, and compare the results to ground-truth queries.
 
